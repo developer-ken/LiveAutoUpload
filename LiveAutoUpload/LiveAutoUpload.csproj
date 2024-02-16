@@ -7,4 +7,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.2" />
+    <PackageReference Include="TouchSocket" Version="2.0.0-beta.273" />
+    <PackageReference Include="TouchSocket.Http" Version="2.0.0-beta.273" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BiliApi.Net\BiliApi.csproj" />
+    <ProjectReference Include="..\FlvUtility\FlvUtility.csproj" />
+  </ItemGroup>
+
 </Project>
