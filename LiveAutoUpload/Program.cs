@@ -12,7 +12,7 @@ namespace LiveAutoUpload
     internal class Program
     {
         const int Port = 8080;
-        const string FilePathPrefix = "/ramdisk/biliverec";
+        static string FilePathPrefix = "/ramdisk/biliverec";
         static string cookies = "";
 
         static Dictionary<string, RecordingSession> session = new Dictionary<string, RecordingSession>();
@@ -21,6 +21,20 @@ namespace LiveAutoUpload
 
         static void Main(string[] args)
         {
+            if (args.Length == 1 && Directory.Exists(args[0]))
+            {
+                FilePathPrefix = args[0];
+                Console.WriteLine($"指定的录播姬工作路径：{FilePathPrefix}");
+            }
+            else if (Directory.Exists(FilePathPrefix))
+            {
+                Console.WriteLine($"您没有指定录播姬工作路径！将使用开发者默认值：{FilePathPrefix}");
+            }
+            else
+            {
+                Console.WriteLine($"您没有指定录播姬工作路径，且开发者默认值不可用。\n" +
+                    $"您必须提供录播姬使用的工作目录，以便本程序读取录播文件。");
+            }
             if (File.Exists("bili_login.key"))
             {
                 cookies = File.ReadAllText("bili_login.key");
@@ -122,7 +136,7 @@ namespace LiveAutoUpload
                         Console.WriteLine(" - 计算Tag...");
                         form.Tags = $"录播,{sess.Name}," + vss.GetRecommendedTags(form.Title, 3, desc: form.Description).Result;
 
-                        Console.WriteLine(" - 提交视频信息..."); 
+                        Console.WriteLine(" - 提交视频信息...");
 
                         var bvid = vss.Submit(form).Result;
                         Console.WriteLine($"投稿完成({bvid})");
