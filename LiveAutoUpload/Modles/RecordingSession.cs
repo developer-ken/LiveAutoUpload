@@ -18,6 +18,7 @@ namespace LiveAutoUpload.Modles
         public DateTime EndTime;
         public Dictionary<string, bool> Files = new Dictionary<string, bool>();
         public BiliLiveRoom liveroom;
+        public bool isEnded = false;
 
         public RecordingSession(string guid, string title, DateTime startTime)
         {
@@ -45,6 +46,7 @@ namespace LiveAutoUpload.Modles
         public void EndSession(DateTime endTime)
         {
             EndTime = endTime;
+            isEnded = true;
         }
 
         public void WaitForFileClose()
